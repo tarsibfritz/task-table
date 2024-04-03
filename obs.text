@@ -1,0 +1,83 @@
+Contexto:
+Uma empresa de desenvolvimento de software foi contratada para criar um sistema de gerenciamento de tarefas,
+e você é o desenvolvedor designado para a construção desse sistema. Cada tarefa precisa ser registrada 
+com um ID único, descrição, situação atual (Não iniciada, Iniciada, Em Andamento, Concluída), data de 
+abertura e, opcionalmente, data de conclusão. Além disso, o desenvolvedor precisa implementar nessa
+aplicação as operações CRUD (Create, Read, Update, Delete) das tarefas.
+
+Desafio:
+Desenvolver uma aplicação que ofereça o CRUD das tarefas com o banco de dados.
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Aluna: Tarsila Barros Fritz - Turma 2
+
+# Anotações sobre a estruturação do projeto: #
+
+-> no terminal: npm install express
+-> no terminal: npm install mysql
+
+1. Controller:
+    a. criei um arquivo 'taskController.js' na pasta 'controllers';
+    b. criei a classe TaskController com os métodos do CRUD:
+        b1. método para ler todas as tarefas;
+        b2. método para ler uma tarefa (ID);
+        b3. método para criar nova tarefa;
+        b4. método para atualizar uma tarefa (ID);
+        b5. método para deletar uma tarefa (ID);
+    c. exportei o módulo da classe TaskController como uma instância.
+
+2. Routers:
+    a. criei um arquivo 'taskRouters.js' na pasta 'routers';
+    b. por padrão -> importei o módulo Router do framework Express (const Router = require("express").Router);
+    c. por padrâo -> criei uma intância de um roteador do Express para definir rotas e manipular requisições HTTP (const router = Router());
+    d. antes de começar os métodos HTTP, importei o taskController;
+    e. criei os métodos HTTP:
+        e1. get (HTTP) = readList (CRUD);
+        e2. get (HTTP) = read (CRUD);
+        e3. post (HTTP) = create (CRUD);
+        e4. put (HTTP) = update (CRUD);    
+        e5. delete (HTTP) = delete (CRUD); 
+    f. exportei o módulo do router.
+
+3. Index (routers):
+    a. criei o arquive 'index.js' dentro da pasta routers;
+    b. por padrão -> importei o módulo 'taskRouters.js';
+    c. por padrão -> exportei uma função que recebe os parâmetros 'app' e 'express;
+
+4. Models:
+    a. criei o arquivo 'taskModel.js' dentro da pasta models;
+    b. criei a classe taskModel para manipular operações relacionadas as listas no banco de dados:
+        b1. por padrão -> método para executar consultas SQL no banco de dados;
+        b2. método para obter lista de tarefas = readList() - CRUD/Controller;
+        b3. método para obter uma tarefa da lista = read(id) - CRUD/Controller;
+        b4. método para criar nova tarefa = create(newTask) - CRUD/Controller;
+        b5. método para atualizar uma tarefa = update(updateTask, id) - CRUD/Controller;
+        b6. método para deletar uma tarefa = delete(id) - CRUD/Controller;
+    c. exportei o módulo da classe TaskModel como uma instância.
+
+5. importei o 'taskModel.js' no arquivo 'taskController.js'.
+
+6. Database:
+    a. criei o arquivo 'dbConnection.js':
+        a1. por padrâo -> importei o módulo 'mysql' para interagir com o banco de dados MySQL;
+        a2. por parão -> criei uma conexão com o banco de dados MySQL utilizando as configurações para conexão (host, port, password...);
+        a3. exportei a conexão criada.
+    b. criei o arquivo 'dbCreate.js':
+        b1. criei a classe 'taskDatabase';
+        b2. criei os métodos para: inicializar a conexão com o bd, inicializar o bd, criar o bd e criar a tabela;
+        b3. exportei o módulo da classe taskDatabase como uma instância.
+    c. criei o arquivo 'index.js':
+        c1. importei: o módulo do dbConnection e o módulo dbCreate;
+        c2. exportei uma função que será executada para inicializar o banco de dados e as tabelas.
+
+7. importei o 'dbConnection.js' no arquivo 'taskModel.js'.
+
+8. Index:
+    a. por padrâo -> importei o módulo Express;
+    b. por padrâo -> criei uma instância do aplicativo Express(app);
+    c. por padrão -> defini a porta em que o servidor será executado;
+    d. importei o arquivo 'index.js' do banco de dados para conectar ele com o restante do programa;
+    e. importei o arquivo 'index.js' do routers para conectar ele com o restante do programa;
+    f. por padrão -> router(app, express);
+    g. por padrão -> função .listen() para iniciar o servidor.
