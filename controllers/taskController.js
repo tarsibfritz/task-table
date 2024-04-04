@@ -22,7 +22,7 @@ class taskController{
 
     // Método para criar uma tarefa  [create]
     create(req, res){
-        // Obtém os dados da nova vaga de emprego do corpo da requisição
+        // Obtém os dados da nova tarefa do corpo da requisição
         const newTask = req.body;
         const task = taskModel.create(newTask);  // Chamada da função do TaskModel para ler uma tarefa
         return task
